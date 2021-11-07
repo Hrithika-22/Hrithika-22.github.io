@@ -6,7 +6,8 @@
     <div class="header">
       <p><h1><center>FOOD MART</center></h1></p>
     </div>
-
+  <script type = "text/javascript"  src = "file.js" >
+   </script>
 <style>
 
 .header {
@@ -17,6 +18,8 @@
   font-size: 12.5px;
   margin-top: 0%;
 }
+  .detailed-des{
+    display: none;
 
 /* Menu customization*/
 
@@ -107,7 +110,7 @@
 </style>
 </head>
 
-<body>
+<body onload="loadQty(document.getElementById('quantity'))">  
 
     <!--Menu bar-->
 
@@ -189,23 +192,26 @@
         <div>
           <img src="yop soen.jpg" alt="yop" width="60%" height="60%">
           <h2>Yop</h2>
+           <div class="price">
+                 <h2>Price: $<span id="price">5.99</span></h2>
+                </div>
           <div class=" product-description">
-            <details class="des">
-              <summary>Product description</summary>
-                  <p>
+            <button onclick="moredescrip() " class='more-text'>More Description</button><br> 
+                  <div class='detailed-des' id="myDiv">Product description:
                     <ul>
                         <li class=" Available-store">Yop</li>
                         <li class = " Origin">2% strawberry flavoured </li>
                         <li class="Available">Available all year around </li>
                         <li class= " Category">Type of drink: flat </li>
-                        <li class= "price">Price "$1.45/100ml" </li>
-
-                       </ul>
-                     </p>
+                         </ul>
                     </div>
-                    </details>
-          <input type="number" id="quantity" name="quantity"
-                min="1" max="100">
+               </div>
+                <div class="qty">
+                  Quantity:
+                  <input type="number" id="quantity" name="quantity" min="1" max="100"
+                  onchange= "updatePrice(5.99, document.getElementById('price'), this)">
+                </div>
+                   
           <button>Add to Cart</button>
         </div>
       </th>
