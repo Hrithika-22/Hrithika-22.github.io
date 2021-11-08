@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Yop</title>
+   <!--Header-->
+    <div class="header">
+      <p><h1><center>FOOD MART</center></h1></p>
+    </div>
+
+    <script type = "text/javascript"  src = "file.js" >
+    </script>
+
+ <style>
+
+.header {
+  padding: 10px;
+  text-align: center;
+  background: lightgray;
+  color: black;
+  font-size: 12.5px;
+  margin-top: 0%;
+}
+
+/* Menu customization*/
+
+/* Nav menu */
+.navbar {
+  overflow: hidden;
+  background-color: grey;
+}
+
+/* Nav links */
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+/* Subnav menu */
+.subnav {
+  float: left;
+  overflow: hidden;
+}
+
+/* Subnav button */
+.subnav .subnavbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+/* Hover Nav Color */
+.navbar a:hover, .subnav:hover .subnavbtn {
+  background-color: lightgray;
+}
+
+/* Style subnav + position */
+.subnav-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  background-color: grey;
+  width: 100%;
+  z-index: 1;
+}
+
+
+/* Style the subnav links */
+.subnav-content a {
+  float: left;
+  color: white;
+  text-decoration: none;
+}
+
+/*Hover Color 4 Subnav */
+.subnav-content a:hover {
+  background-color: lightgrey;
+  /* text*/
+  color: white;
+}
+
+/* Open subnav when hover */
+.subnav:hover .subnav-content {
+  display: block;
+}
+
+/* Table customizaiton*/
+    table {
+        table-layout: fixed;
+        width: 50%;
+        margin-top: 1%;
+        margin-left: 25%;
+      }
+    td {
+        width: 25%;
+      }
+    th, td {
+       border-style: dashed;
+       border-color: grey;
+       height: 560px;
+    }
+    .detailed-des{
+            display: none;
+
+        }
+ </style>
+</head>
+
+<body onload="loadQty(document.getElementById('quantity'))"> 
+
+    <!--Menu bar-->
+
+    <div class="navbar">
+      <a href="index.html">Home</a>
+      <div class="subnav">
+        <button class="subnavbtn"><a href="fruitsh.html"></a>Fruits <i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+          <a href="banana.html">Banana</a>
+          <a href="peach.html">Peach</a>
+          <a href="strawberry.html">Strawberry</a>
+          <a href="kiwi.html">Kiwi</a>
+          <a href="blueberry.html">Blueberry</a>
+  
+        </div>
+      </div>
+      <div class="subnav">
+        <button class="subnavbtn"><a href="vegtableh.html"></a>Vegetables <i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+          <a href="lettuce.html">Lettuce</a>
+          <a href="tomato.html">Tomato</a>
+          <a href="cucumber.html">Cucumber</a>
+          <a href="lemon.html">Lemon</a>
+          <a href="parsley.html">Flat Parsley</a>
+        </div>
+      </div>
+      <div class="subnav">
+        <button class="subnavbtn"><a href="meath.html"></a>Meat <i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+          <a href="lamb.html">Lamb</a>
+          <a href="prawns.html">Prawns</a>
+          <a href="crab.html">Crab</a>
+          <a href="fish.html">Fish</a>
+          <a href="chicken.html">Chicken</a>
+        </div>
+      </div>
+      <div class="subnav">
+        <button class="subnavbtn"><a href="dairyh2.html"></a>Dairy <i class="fa fa-caret-down"></i></button>
+        <div class="subnav-content">
+          <a href="butter.html">Butter</a>
+          <a href="milk.html">Milk</a>
+          <a href="kraft.html">Kraft Cheese</a>
+          <a href="cream_cheese.html">Philadelphia Cream Cheese</a>
+          <a href="eggs.html">Burnbrae Eggs</a>
+        </div>
+      </div>
+  
+  
+        <div class="subnav">
+          <button class="subnavbtn"><a href="drinks.html"></a>Drinks <i class="fa fa-caret-down"></i></button>
+          <div class="subnav-content">
+            <a href="coke.html">Coca-Cola</a>
+            <a href="fanta.html">Fanta</a>
+            <a href="juice.html">Orange Juice</a>
+            <a href="yop.html">Yop</a>
+            <a href="redbull.html">Red-Bull</a>
+          </div>
+        </div>
+
+    <a href="shopping-cart%20soen.html">View Cart</a>
+    <div class="subnav-content">
+    <a href="#cart"></a>
+    </div>
+
+    <a href="login.html">Log In</a>
+    <div class="subnav-content">
+    <a href="#LogIn"></a>
+    </div>
+
+    <a href="signup.html">Sign Up</a>
+    <div class="subnav-content">
+    <a href="#SignUp"></a>
+    </div>
+
+  </div>
+
+<table>
+    <th>
+        <div>
+          <img src="yop soen.jpg" alt="yop" width="60%" height="60%">
+          <h2>Yop </h2>
+                <div class="price">
+                  <h2>Price: $<span id="price">1.45</span></h2>
+                </div>
+          <div class=" product-description">
+                  <button onclick="moredescrip() " class='more-text'>More Description</button><br> 
+                  <div class='detailed-des' id="myDiv">Product description:
+                    <ul>
+                        <li class=" Available-store">Yop</li>
+                        <li class = " Origin">2% strawberry flavoured </li>
+                        <li class="Available">Available all year around </li>
+                        <li class= " Category">Type of drink: flat </li>
+
+                       </ul>
+                  </div>
+                </div>
+                <div class="qty">
+                  Quantity:
+                  <input type="number" id="quantity" name="quantity" min="1" max="100"
+                  onchange= "updatePrice(1.45, document.getElementById('price'), this)">
+                </div>
+          <button>Add to Cart</button>
+        </div>
+      </th>
+  </table>
+
+</body>
+</html>
