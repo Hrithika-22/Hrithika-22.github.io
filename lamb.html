@@ -7,7 +7,10 @@
       <p><h1><center>FOOD MART</center></h1></p>
     </div>
 
-<style>
+    <script type = "text/javascript"  src = "file.js" >
+    </script>
+
+ <style>
 
 .header {
   padding: 10px;
@@ -104,10 +107,14 @@
        border-color: grey;
        height: 560px;
     }
-</style>
+    .detailed-des{
+            display: none;
+
+        }
+ </style>
 </head>
 
-<body>  
+<body onload="loadQty(document.getElementById('quantity'))">   
 
     <!--Menu bar-->
 
@@ -191,23 +198,26 @@
     <th>
         <div>
           <img src="https://images.unsplash.com/photo-1448907503123-67254d59ca4f?ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8bXV0dG9uJTIwbWVhdHxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" alt="Mutton" width="60%" height="60%">
-          <h2>Lamb</h2>
+          <h2>Lamb </h2>
+                <div class="price">
+                  <h2>Price: $<span id="price">15.65</span></h2>
+                </div>
           <div class=" product-description">
-            <details class="des">
-              <summary>Product description</summary>
-                  <p>
+                  <button onclick="moredescrip() " class='more-text'>More Description</button><br> 
+                  <div class='detailed-des' id="myDiv">Product description:
                     <ul>
                         <li class=" Available-store">In Stock </li>
                         <li class = " Type of Meat">Type of Meat:Red </li>
-                        <li class="Type of slice"> Type of slice: Lamb chops </li>                   
-                        <li class= "price">Price "15.65 $/lb" </li>
+                        <li class="Type of slice"> Type of slice: Lamb chops </li>
             
                        </ul>
-                     </p>
-                    </div>
-                    </details >
-          <input type="number" id="quantity" name="quantity"
-                min="1" max="100">
+                  </div>
+                </div>
+                <div class="qty">
+                  Quantity:
+                  <input type="number" id="quantity" name="quantity" min="1" max="100"
+                  onchange= "updatePrice(15.65, document.getElementById('price'), this)">
+                </div>
           <button>Add to Cart</button>
         </div>
       </th>  

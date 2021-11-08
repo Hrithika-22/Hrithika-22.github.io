@@ -7,7 +7,10 @@
       <p><h1><center>FOOD MART</center></h1></p>
     </div>
 
-<style>
+    <script type = "text/javascript"  src = "file.js" >
+    </script>
+
+ <style>
 
 .header {
   padding: 10px;
@@ -104,10 +107,14 @@
        border-color: grey;
        height: 560px;
     }
-</style>
+    .detailed-des{
+            display: none;
+
+        }
+ </style>
 </head>
 
-<body>  
+<body onload="loadQty(document.getElementById('quantity'))">   
 
     <!--Menu bar-->
 
@@ -190,24 +197,27 @@
     <th>
         <div>
           <img src="cucumber soen pic.jpg" alt="cucumber" width="60%" height="60%">
-          <h2>Cucumber</h2>
+          <h2>Cucumber </h2>
+                <div class="price">
+                  <h2>Price: $<span id="price">1.25</span></h2>
+                </div>
           <div class=" product-description">
-            <details class="des">
-              <summary>Product description</summary>
-                  <p>
+                  <button onclick="moredescrip() " class='more-text'>More Description</button><br> 
+                  <div class='detailed-des' id="myDiv">Product description:
                     <ul>
                         <li class=" Available-store">In Stock </li>
                         <li class = " Origin">Product of USA </li>
                         <li class="Available">Available all year around </li>
                         <li class= " Category">Type: Vegetables </li>
-                        <li class= "price">Price "1.25 $/unit" </li>
             
                        </ul>
-                     </p>
-                    </div>
-                    </details >
-          <input type="number" id="quantity" name="quantity"
-                min="1" max="100">
+                  </div>
+                </div>
+                <div class="qty">
+                  Quantity:
+                  <input type="number" id="quantity" name="quantity" min="1" max="100"
+                  onchange= "updatePrice(1.25, document.getElementById('price'), this)">
+                </div>
           <button>Add to Cart</button>
         </div>
       </th>  
