@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Backstore - Add or edit a product</title>
+    <title>Backstore - Products list</title>
     <style>
       [class*="col-"] {
         float: left;
@@ -38,7 +38,7 @@
           margin-left: 15%;
           padding-left: 15px;
         }
-
+        
         .col-navbar-tablet {width: 15%;}
         .topContent-tablet {margin-top: 100px;}
       }
@@ -113,11 +113,78 @@
         text-decoration: none;
       }
 
-      .contentForm {
+      .productButtons a {
+        text-decoration: none;
+      }
+
+      .productButtons button {
+        color: white;
+        background-color: #555555;
+        border: none;
+        padding: 3px 6px;
+        margin: 0 1px;
+      }
+
+      .data {
         border: 1px solid gray;
-        background-color: #dddddd;
+        padding: 15px;
+        float: left;
+      }
+
+      .entry {
+        border-top: 1px solid gray;
+        border-bottom: 1px solid gray;
+        float: left;
+        width: 100%;
+      }
+
+      .image {
+        width: 20%;
+        float: left;
+      }
+
+      .image img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .list {
+        width: 60%;
+        float: left;
+        padding-left: 10px;
+        padding-right: 10px;
+        word-wrap: break-word;
+      }
+
+      .list h1 {
+        font-size: 20px;
+      }
+
+      .amount {
+        width: 20%;
+        float: left;
         text-align: center;
-        padding: 20px;
+
+        height: auto;
+      }
+
+      .entryProductButtons {
+        width: 95%;
+        float: left;
+        text-align: left;
+        padding-bottom: 4px;
+      }
+
+      .entryProductButtons a {
+        text-decoration: none;
+      }
+
+      .entryProductButtons button {
+        color: white;
+        background-color: #555555;
+        border: none;
+        padding: 3px 6px;
+        margin: 0 1px;
       }
 
       .spacing {
@@ -150,7 +217,7 @@
             <li><a href="index.html">Home</a></li>
             <br><br>
             <b>Backstore</b>
-            <li><a href="backstore_p7.html">Products</a></li>
+            <li><a href="backstore_p7.php">Products</a></li>
             <li><a href="backstore_p11.html">Orders</a></li>
             <li><a href="userpage.html">Users</a></li>
           </ul>
@@ -159,28 +226,56 @@
       <div class="content-desktop content-tablet content-phone">
         <div class="topContent-phone topContent-tablet topContent-desktop">
           <h1>Backstore</h1>
-          <p><b>Add or edit a product</b><br>This section of the backstore allows you to add or edit one of the product listings.</p>
+          <p><b>List of products</b><br>This section of the backstore allows you to add, edit, or delete some of the product listings.</p>
         </div>
-        <div class="contentForm col-9 col-s-9">
-          <form>
-            <label for="name">Name of product:</label>
-            <input type="text" id=name name="name"><br><br>
-            <label for="brand">Brand:</label>
-            <input type="text" id="brand" name="brand"><br><br>
-            <label for="origin">Origin:</label>
-            <input type="text" id="origin" name="origin"><br><br>
-            <label for="weight">Weight:</label>
-            <input type="text" id="weight" name="weight"><br><br>
-            <label for="category">Category:</label>
-            <input type="text" id="category" name="category"><br><br>
-            <label for="price">Price:</label>
-            <input type="text" id="price" name="price"><br><br>
-            <label for="qty">Quantity:</label>
-            <input type="text" id="qty" name="qty"><br><br>
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
-            <input type="submit" value="Save">
-          </form>
+        <div class="productButtons">
+          <a href="backstore_p8.php">
+            <button type="button">Add</button>
+          </a>
+        </div>
+        <br>
+        <div class="data col-11 col-s-11">
+        <?php
+          if ($file = fopen("products.txt", "r"))
+          {
+              while(!feof($file))
+              {
+                  $line = fgets($file);
+                  if ($line == "")
+                    continue;
+
+                  $fields = explode("    ", $line);
+
+                  print("<div class='entry'>");
+
+                  print("<div class='image'>");
+                  $img_resource = strtolower($fields[0]) . ".jpg";
+                  print("<img src='$img_resource' alt='$fields[1] $fields[0]'>");
+                  print("</div>");
+
+                  print("<div class='list'>");
+                  print("              <h1>$fields[0]</h1>");
+                  print("              <p>Brand: $fields[1]</p>");
+                  print("              <p>Category: $fields[3]</p>");
+                  print("            </div>");
+                  print("            <div class='amount'>");
+                  print("              <b>Qty</b>");
+                  print("              <p>$fields[5]</p>");
+                  print("            </div>");
+                  print("            <div class='entryProductButtons'>");
+                  print("              <a href='backstore_p8.php?name=$fields[0]'>");
+                  print("                <button type='button'>Edit</button>");
+                  print("              </a>");
+                  print("              <a href='deleteProd.php?name=$fields[0]'>");
+                  print("                <button type='button'>Delete</button>");
+                  print("              </a>");
+                  print("            </div>");
+                  print("          </div>");
+              }
+
+              fclose($file);
+          }
+        ?>
         </div>
       </div>
     </div>

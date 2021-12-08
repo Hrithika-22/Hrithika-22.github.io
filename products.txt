@@ -1,0 +1,7 @@
+Butter    Lactantia    Canada    Dairy    5.99    5
+Milk    Quebon    Canada    Dairy    4.99    3
+Cheese    Kraft    Canada    Dairy    5.99    10
+Steak    Cargill    USA    Meat    12.99    7
+Cream Cheese    Philadelphia    USA    Dairy    3.99    21
+Eggs    Burnbrae    USA    Dairy    8.99    32
+Cucumber    LocalFoods    Canada    Vegetable    1.99    7

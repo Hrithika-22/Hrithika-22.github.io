@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Backstore - Products list</title>
+    <title>Backstore - Add or edit a product</title>
     <style>
       [class*="col-"] {
         float: left;
@@ -38,7 +38,7 @@
           margin-left: 15%;
           padding-left: 15px;
         }
-        
+
         .col-navbar-tablet {width: 15%;}
         .topContent-tablet {margin-top: 100px;}
       }
@@ -113,78 +113,11 @@
         text-decoration: none;
       }
 
-      .productButtons a {
-        text-decoration: none;
-      }
-
-      .productButtons button {
-        color: white;
-        background-color: #555555;
-        border: none;
-        padding: 3px 6px;
-        margin: 0 1px;
-      }
-
-      .data {
+      .contentForm {
         border: 1px solid gray;
-        padding: 15px;
-        float: left;
-      }
-
-      .entry {
-        border-top: 1px solid gray;
-        border-bottom: 1px solid gray;
-        float: left;
-        width: 100%;
-      }
-
-      .image {
-        width: 20%;
-        float: left;
-      }
-
-      .image img {
-        width: 100%;
-        height: 100%;
-      }
-
-      .list {
-        width: 60%;
-        float: left;
-        padding-left: 10px;
-        padding-right: 10px;
-        word-wrap: break-word;
-      }
-
-      .list h1 {
-        font-size: 20px;
-      }
-
-      .amount {
-        width: 20%;
-        float: left;
+        background-color: #dddddd;
         text-align: center;
-
-        height: auto;
-      }
-
-      .entryProductButtons {
-        width: 95%;
-        float: left;
-        text-align: left;
-        padding-bottom: 4px;
-      }
-
-      .entryProductButtons a {
-        text-decoration: none;
-      }
-
-      .entryProductButtons button {
-        color: white;
-        background-color: #555555;
-        border: none;
-        padding: 3px 6px;
-        margin: 0 1px;
+        padding: 20px;
       }
 
       .spacing {
@@ -217,7 +150,7 @@
             <li><a href="index.html">Home</a></li>
             <br><br>
             <b>Backstore</b>
-            <li><a href="backstore_p7.html">Products</a></li>
+            <li><a href="backstore_p7.php">Products</a></li>
             <li><a href="backstore_p11.html">Orders</a></li>
             <li><a href="userpage.html">Users</a></li>
           </ul>
@@ -226,75 +159,51 @@
       <div class="content-desktop content-tablet content-phone">
         <div class="topContent-phone topContent-tablet topContent-desktop">
           <h1>Backstore</h1>
-          <p><b>List of products</b><br>This section of the backstore allows you to add, edit, or delete some of the product listings.</p>
+          <p><b>Add or edit a product</b><br>This section of the backstore allows you to add or edit one of the product listings.</p>
         </div>
-        <div class="productButtons">
-          <a href="backstore_p8.html">
-            <button type="button">Add</button>
-          </a>
-        </div>
-        <br>
-        <div class="data col-11 col-s-11">
-          <div class="entry">
-            <div class="image">
-              <img src="butter.jpg" alt="lactantia butter">
-            </div>
-            <div class="list">
-              <h1>Butter</h1>
-              <p>Brand: Lactantia</p>
-              <p>Category: Dairy</p>
-            </div>
-            <div class="amount">
-              <b>Qty</b>
-              <p>5</p>
-            </div>
-            <div class="entryProductButtons">
-              <a href="backstore_p8.html">
-                <button type="button">Edit</button>
-              </a>
-              <button type="button">Delete</button>
-            </div>
-          </div>
-          <div class="entry">
-            <div class="image">
-              <img src="milk.jpg" alt="quebon milk">
-            </div>
-            <div class="list">
-              <h1>Milk</h1>
-              <p>Brand: Quebon</p>
-              <p>Category: Dairy</p>
-            </div>
-            <div class="amount">
-              <b>Qty</b>
-              <p>3</p>
-            </div>
-            <div class="entryProductButtons">
-              <a href="backstore_p8.html">
-                <button type="button">Edit</button>
-              </a>
-              <button type="button">Delete</button>
-            </div>
-          </div>
-          <div class="entry">
-            <div class="image">
-              <img src="kraft.jpg" alt="kraft cheese">
-            </div>
-            <div class="list">
-              <h1>Cheese</h1>
-              <p>Brand: Kraft</p>
-              <p>Category: Dairy</p>
-            </div>
-            <div class="amount">
-              <b>Qty</b>
-              <p>10</p>
-            </div>
-            <div class="entryProductButtons">
-              <a href="backstore_p8.html">
-                <button type="button">Edit</button>
-              </a>
-              <button type="button">Delete</button>
-            </div>
-          </div>
+
+        <?php
+          $name = $_GET["name"];
+
+          if ($file = fopen("products.txt", "r"))
+          {
+              $done = false;
+              $fields;
+              while(!feof($file) && !$done)
+              {
+                  $line = fgets($file);
+                  $fields = explode("    ", $line);
+
+                  if ($fields[0] == $name)
+                    $done = true;
+              }
+
+              $brand = $fields[1];
+              $origin = $fields[2];
+              $category = $fields[3];
+              $price = $fields[4];
+              $qty = $fields[5];
+
+              fclose($file);
+          }
+        ?>
+
+        <div class="contentForm col-9 col-s-9">
+          <form action="processFormP8.php" method="get">
+            <label for="name">Name of product:</label>
+            <input type="text" id=name name="name" <?php print("value='$name'") ?>><br><br>
+            <label for="brand">Brand:</label>
+            <input type="text" id="brand" name="brand" <?php print("value='$brand'") ?>><br><br>
+            <label for="origin">Origin:</label>
+            <input type="text" id="origin" name="origin" <?php print("value='$origin'") ?>><br><br>
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" <?php print("value='$category'") ?>><br><br>
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price" <?php print("value='$price'") ?>><br><br>
+            <label for="qty">Quantity:</label>
+            <input type="text" id="qty" name="qty" <?php print("value='$qty'") ?>><br><br>
+            <input type="submit" value="Save">
+          </form>
         </div>
       </div>
     </div>
