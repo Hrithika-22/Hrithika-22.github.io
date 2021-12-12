@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<products>
+
+
+  <product>
+    <id>1</id>
+    <shortname>Coka Cola Refreshing</shortname>
+    <brand>Coca Cola Zero</brand>
+    <category>Soft Drink</category>
+    <inventory>15</inventory>
+    <price>1.20</price>
+    <weight>500</weight>
+    <imgpath>https://images.unsplash.com/photo-1629019416996-712aa1bd87f4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGVwc2l8ZW58MHx8MHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60</imgpath>
+  </product>
+
+  <product>
+    <id>2</id>
+    <shortname>Classic Fanta</shortname>
+    <brand>Fanta</brand>
+    <category>Soft Drink</category>
+    <inventory>10</inventory>
+    <price>1.20</price>
+    <weight>500</weight>
+    <imgpath>https://images.unsplash.com/photo-1624517452488-04869289c4ca?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZmFudGF8ZW58MHx8MHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60</imgpath>
+  </product>
+
+  <product>
+    <id>3</id>
+    <shortname>Made with orange sans-flavour artificial</shortname>
+    <brand>Orange Juice</brand>
+    <category>Drink</category>
+    <inventory>10</inventory>
+    <price>3.40</price>
+    <weight>500</weight>
+    <imgpath>https://images.unsplash.com/photo-1599360889420-da1afaba9edc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGFwcGxlJTIwanVpY2V8ZW58MHx8MHx8&amp;ixlib=rb-1.2.1&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=60</imgpath>
+  </product>
+
+  <product>
+    <id>4</id>
+    <shortname>2% strawberry flavoured</shortname>
+    <brand>Yop</brand>
+    <category>Flat Drink</category>
+    <inventory>10</inventory>
+    <price>1.45</price>
+    <weight>100</weight>
+    <imgpath>yoppic.jpeg</imgpath>
+  </product>
+
+  <product>
+    <id>5</id>
+    <shortname>Red Bull</shortname>
+    <brand>Red Bull</brand>
+    <category>Energy Drink</category>
+    <inventory>10</inventory>
+    <price>3.45</price>
+    <weight>250</weight>
+    <imgpath>redbullpic.jpeg</imgpath>
+  </product>
+
+</products>

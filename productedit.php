@@ -1,3 +1,117 @@
+<?php
+  $action = "";
+  if(isset($_POST["saveproduct"]))
+  {
+    if (isset($_POST["name"]) && isset($_POST["brand"]) && isset($_POST["category"]) && isset($_POST["inventory"]))
+    {
+      $file = 'thefile.xml';
+
+      $id = $_POST["id"];
+      $name = $_POST["name"];
+      $brand = $_POST["brand"];
+      $cat = $_POST["category"];
+      $price = $_POST["price"];
+      $weight = $_POST["weight"];
+      $inv = $_POST["inventory"];
+
+      $products = simplexml_load_file($file);
+      $found = $products->xpath('/products/product/id[.=' . $id . ']/parent::*');
+
+      $found[0]->shortname = $name;
+      $found[0]->brand = $brand;
+      $found[0]->category = $cat;
+      $found[0]->inventory = $inv;
+      $found[0]->price = $price;
+      $found[0]->weight = $weight;
+
+      $products->saveXML();
+      $products->asXML($file);
+
+      header("Location: backstore_p11.php");
+      exit();
+    }
+  }
+  elseif (isset($_POST["addproduct"])) {
+    if (isset($_POST["name"]) && isset($_POST["brand"]) && isset($_POST["category"]) && isset($_POST["inventory"]))
+    {
+      $file = 'thefile.xml';
+      $xml = simplexml_load_file($file);
+
+      $id = $_POST["id"];
+      $name = $_POST["name"];
+      $brand = $_POST["brand"];
+      $cat = $_POST["category"];
+      $price = $_POST["price"];
+      $weight = $_POST["weight"];
+      $inv = $_POST["inventory"];
+      $img = "nopicture.jpg";
+
+      $newproduct = $xml->addChild('product');
+      $newproduct->addChild('id', $id);
+      $newproduct->addChild('shortname',$name);
+      $newproduct->addChild('brand',$brand);
+      $newproduct->addChild('category',$cat);
+      $newproduct->addChild('price',$price);
+      $newproduct->addChild('weight',$weight);
+      $newproduct->addChild('inventory',$inv);
+      $newproduct->addChild('imgpath',$img);
+      $xml->saveXML();
+      $xml->asXML($file);
+
+      header("Location: backstore_p11.php");
+      exit();
+
+    }
+  }
+  else {
+    $file = 'thefile.xml';
+    $products = simplexml_load_file($file);
+    $id = 0;
+    foreach ($products as $product) {
+      if ($id < (int)$product->id)
+      {
+        $id = (int)$product->id;
+      }
+    }
+    $id++;
+    $name = "";
+    $brand = "";
+    $category = "";
+    $inventory = "";
+    $price = 0.0;
+    $weight = 0.0;
+    $img = "nopicture.jpg";
+      if(isset($_GET["ID"]))
+    {
+      $action = "saveproduct";
+      if (file_exists($file))
+      {
+        $found = $products->xpath('/products/product/id[.=' . $_GET["ID"] . ']/parent::*');
+        $id = $found[0]->id;
+        $name = $found[0]->shortname;
+        $brand = $found[0]->brand;
+        $category = $found[0]->category;
+        $inventory = $found[0]->inventory;
+        $price = $found[0]->price;
+        $weight = $found[0]->weight;
+        $img = $found[0]->imgpath;
+      }
+      else{
+        echo "not found";
+      }
+
+      $path;
+    }
+    elseif (isset($_POST["add"])) {
+      $action = "addproduct";
+    }
+    else
+    {
+      header("Location: backstore_p11.php");
+      exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -207,7 +321,7 @@
         font-size: 20px;
         font-family: 'Montserrat', sans-serif;
       }
-      .btn {
+      .btn, .deletebtn, .savebtn {
         background: rgb(14, 149, 226);
         background-image: -webkit-linear-gradient(top, rgb(14, 149, 226), #2980b9);
         background-image: -moz-linear-gradient(top, rgb(14, 149, 226), #2980b9);
@@ -223,10 +337,10 @@
         padding: 10px 20px 10px 20px;
         text-decoration: none;
         border: 0;
-        margin-top:65%;
+        margin-top: 0;
         margin-left: 20px;
       }
-      .btn:hover {
+      .btn:hover, .deletebtn:hover, .savebtn:hover {
         background: #3cb0fd;
         background-image: -webkit-linear-gradient(top, #3cb0fd, #7a0ef5);
         background-image: -moz-linear-gradient(top, #3cb0fd, #7a0ef5);
@@ -264,12 +378,12 @@
       <div class="navbar navbar-phone col-navbar-tablet col-navbar-desktop">
         <div class="navbarInner">
           <ul>
-            <li><a href="index.html">Home</a></li>
+            <li><a href="backstore.php">Home</a></li>
             <br><br>
             <b>Backstore</b>
-            <li><a href="backstore_p7.html">Products</a></li>
-            <li><a href="backstore_p11.html">Orders</a></li>
-            <li><a href="userpage.html">Users</a></li>
+            <li><a href="backstore_p7.php">Products</a></li>
+            <li><a href="backstore_p11.php">Orders</a></li>
+            <li><a href="userpage.php">Users</a></li>
           </ul>
         </div>
       </div>
@@ -277,9 +391,6 @@
         <div class="topContent-phone topContent-tablet topContent-desktop">
           <h1>Backstore</h1>
           <p><b>List of products</b><br>This section of the backstore allows you to add, edit, or delete some of the order listings.</p>
-        </div>
-        <div class="productButtons">
-          <button class="btn"type="button">Add</button>
         </div>
         <br>
         <div class="data col-11 col-s-11">
@@ -291,63 +402,32 @@
               <p class="pp">Qty</p>
             </div>
           </div>
-          <div class="entry">
-            <div class="image">
-              <img src="https://images.unsplash.com/photo-1629019416996-712aa1bd87f4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8cGVwc2l8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" alt="Coca cola">
-            </div>
-            <div class="list">
-              <h1>Classic coke soft drink</h1>
-              <p>Brand: Coca Cola</p>
-              <p>Category: Drink</p>
-            </div>
-            <div class="amount">
-              <p>5</p>
-              <a href="backstore_p12.html">
-                <button class ="btn" type="button">Edit</button>
-              </a>
-              <a href="backstore_p12.html">
-                <button class ="btn" type="button">Delete</button>
-              </a>
-            </div>
-          </div>
-          <div class="entry">
-            <div class="image">
-              <img src="https://images.unsplash.com/photo-1624517452488-04869289c4ca?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8ZmFudGF8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" alt="Fanta">
-            </div>
-            <div class="list">
-              <h1>Zero sugar</h1>
-              <p>Brand: Fanta</p>
-              <p>Category: Drink</p>
-            </div>
-            <div class="amount">
-              <p>3</p>
-              <a href="backstore_p12.html">
-                <button class ="btn" type="button">Edit</button>
-              </a>
-              <a href="backstore_p12.html">
-                <button class ="btn" type="button">Delete</button>
-              </a>
-            </div>
-          </div>
-          <div class="entry">
-            <div class="image">
-              <img src="https://images.unsplash.com/photo-1599360889420-da1afaba9edc?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTZ8fGFwcGxlJTIwanVpY2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=60" alt="Orange juice">
-            </div>
-            <div class="list">
-              <h1>Made with orange sans-flavour artificial</h1>
-              <p>Brand: Orange juice</p>
-              <p>Category: Drink</p>
-            </div>
-            <div class="amount">
-              <p>10</p>
-              <a href="backstore_p12.html">
-                <button class ="btn" type="button">Edit</button>
-              </a>
-              <a href="backstore_p12.html">
-                <button class ="btn" type="button">Delete</button>
-              </a>
-            </div>
-          </div>
+          <?php
+
+
+
+
+            $path = str_replace("%&#38;%", "&", $img);
+            $html = '<form action="productedit.php" method="POST"><div class="entry">
+                    <div class="image">
+                      <img src="' . $path . '">
+                    </div>
+                    <div class="list">
+                      Name: <input text="text" name="name" value="' . $name . '">
+                      <p>Brand: <input text="text" name="brand" value="' . $brand . '"></p>
+                      <p>Category<input text="text" name="category" value="' . $category . '"></p>
+                      <p>Price: <input text="text" name="price" value="' . $price . '"></p>
+                      <p>Weight(mL): <input text="text" name="weight" value="' . $weight . '"></p>
+                    </div>
+                    <div class="amount">
+                    <p><input text="text" name="inventory" value="' . $inventory . '"></p>
+                        <input name="id" value="' . $id . '" type="hidden">
+                        <input name="' . $action . '" id= "' . $id . '" class="savebtn" type="submit" value="Save">
+                    </div>
+                    </div></form>';
+           echo $html;
+
+          ?>
         </div>
       </div>
     </div>
@@ -358,5 +438,7 @@
       <a class="footer-link" href="https://twitter.com/">Twitter</a>
       <a class="footer-link" href="https://www.w3schools.com/">Website</a>
     </div>
+    <!-- <script type="text/javascript" src="script.js"></script> -->
   </body>
+  <?php }?>
 </html>
