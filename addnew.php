@@ -177,7 +177,7 @@
                 <b>Backstore-Edit Users</b>
                 <li><a href="backstore_p7.html">Products</a></li>
                 <li><a href="backstore_p9.html">Orders</a></li>
-                <li><a href="userpage.html">Users</a></li>
+                <li><a href="userpage.php">Users</a></li>
             </ul>
         </div>
     </div>
@@ -200,26 +200,24 @@
     <div class="form-uptade" >
         <form class="User-form" action="Add.php" method="POST">
             <label for="username">Username: </label><br>
-            <input type="text" name="Username" value=""><br><br>
+            <input type="text" name="username" value=""><br><br>
+            <label for="password">Password:</label><br>
+            <input type="text" name="password" value=""><br><br>
             <label for="status">Status: </label><br>
             <input type="text" name="isAdmin" value=""><br><br>
-
             <label for="fname">First name:</label><br>
-            <input type="text" name="fname" value=""><br><br>
+            <input type="text" name="fName" value=""><br><br>
             <label for="lname">Last name:</label><br>
-            <input type="text" name="lname" value=""><br><br>
-            <label for="email">Email:</label><br>
-            <input type="text" name="email" value=""><br><br>
+            <input type="text" name="lName" value=""><br><br>
             <label for="postalcode">Postalcode:</label><br>
-            <input type="text" name="postalcode" value=""><br><br>
-            <label for="password">Password:</label><br>
-            <input type="text" name="password" value="*********"><br><br>
-            <br><br>
+            <input type="text" name="postalCode" value=""><br><br>
+            <label for="email">Email:</label><br><br>
+            <input type="text" name="email" value=""><br>
 
             <button type="submit"  name="adduser" value="add">Save</button>
 
 
-    </div>s
+    </div>
     </form>
 
 </body>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,7 +166,7 @@
 <body>
 <div class="header">
     <div class="logo">
-        <p>Food Mart</p>
+        <p>Food World</p>
     </div>
 </div>
 <div class="navAndContent">
@@ -177,7 +178,7 @@
                 <b>Backstore-Edit Users</b>
                 <li><a href="backstore_p7.html">Products</a></li>
                 <li><a href="backstore_p9.html">Orders</a></li>
-                <li><a href="userpage.html">Users</a></li>
+                <li><a href="userpage.php">Users</a></li>
             </ul>
         </div>
     </div>
@@ -188,27 +189,47 @@
         </div>
         <div class="profile">
             <div class="avatar">
-                <img src="https://media.istockphoto.com/vectors/avatar-icon-vector-female-person-symbol-circle-profile-sign-in-flat-vector-id959086026?s=612x612" class= "user-img"alt="USER">
+                <img src="https://thumbs.dreamstime.com/b/profile-icon-vector-male-user-person-avatar-flat-color-glyph-pictogram-illustration-117610301.jpg" class= "user-img"alt="USER">
             </div>
+            <h5 class="user-name"></h5>
 
-            <h6 class="user-status">Status:Member</h6>
+
+
+            </h6>
         </div>
     </div>
-    <div class="form-uptade">
-        <form class="User-form" action="" method="POST">
+    <div class="form-uptade" >
+
+        <form class="User-form" action="edit.php" method="POST">
+            <?php
+            //load xml file
+            $xml = simplexml_load_file('../soen287/database.xml');
+
+            forEach ($xml->user as $row) {
+            ?>
+
+
             <label for="username">Username:</label><br>
             <input type="text" id="username" name="username" value="<?php echo $row->username; ?>"><br><br>
-            <label for="fname">First name:</label><br>
-            <input type="text" id="fname" name="fname" value="<?php echo $row->fname; ?>"><br><br>
-            <label for="lname">Last name:</label><br>
-            <input type="text" id="lname" name="lname"value="<?php echo $row->lname; ?>"><br><br>
-            <label for="email">Email:</label><br>
-            <input type="text" id="email"name="email" value="<?php echo $row->email; ?>"><br><br>
-            <label for="postalcode">Postalcode:</label><br>
-            <input type="text" id="postalcode" name="postalcode"value="<?php echo $row->postalcode; ?>"><br><br>
             <label for="password">Password:</label><br>
             <input type="text" id="password" name="password"value="<?php echo $row->password; ?>"><br><br>
-            <button type="save" value="Save">Save</button>
+                <label for="status">isAdmin:</label><br>
+                <input type="text" id="isAdmin" name="isAdmin"value="<?php echo $row->isAdmin; ?>"><br><br>
+            <label for="fname">First name:</label><br>
+            <input type="text" id="fName" name="fName" value="<?php echo $row->fName; ?>"><br><br>
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lName" name="lName" value="<?php echo $row->lName; ?>"><br><br>
+            <label for="postalcode">Postalcode:</label><br>
+            <input type="text" id="postalCode" name="postalCode"value="<?php echo $row->postalCode; ?>"><br><br>
+            <label for="email">Email:</label><br>
+            <input type="text" id="email"name="email"  value="<?php echo $row->email; ?>"><br><br>
+
+                <button type="save"  name="save" value="save">Save</button><br><br>
+
+                <?php
+                }
+                ?>
+
 
 
     </div>
